@@ -1,0 +1,25 @@
+API gateway supports netty and spring flux 
+ 	- has added cloud-starter-gateway and webflux dependency in pom file.
+ 	In spring cloud Documentation it's mentioned that -> 
+ 	Spring cloud Gateway requires Netty runtime provided by Spring Boot and Spring WebFlux. 
+ 	It does not work in a traditional Servlet Conatainer or when built as a WAR.
+ 	 
+ 
+ 	
+ for OKTA Auth we have to add spring security and okta starter dependency in pom file; 
+ 
+ Fetching Issuer id and Audience name:-
+ OKTA. OAUTH. issuer -> default (API > Authorization Services > default > Issuer Id)
+ 
+ CLIENT -ID & CLIENT-SECRET:-
+ 	Application to be used from OKTA -
+ 	(Applications > Applications > Application To be used > Client Id)
+ 	(Applications > Applications > Application To be used > Client Secret)	
+ 	
+Scopes:- 
+Provided by Authorization Services
+		openId, profile, email, internal(Custom made Scope)
+		
+		
+We are using Web Flux and Spring Secutiry
+Hence We have to use @EnableWebFluxSecurity

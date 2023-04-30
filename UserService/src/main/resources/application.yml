@@ -1,0 +1,76 @@
+server:
+  port: 8082
+  
+  
+spring:
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3400/microservices?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+   name: USER-SERVICE
+  config:
+    import: optional:configserver:http://localhost:8085
+    
+    
+
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#    
+
+    
+# Actuator Configuration
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+   
+   
+# Resilience4J configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        register-health-indicator: true 
+        failure-rate-threshold: 10
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        max-wait-duration-in-half-open-state: 6s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+# retry configuratiion
+#  retry:
+#    instances:
+#      ratingHotelService:
+#        max-attempts: 3
+#        wait-duration: 5s
+        
+  ratelimiter:
+    instances:
+      userRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 2s
+        
+# to Test this we have used Jmeter, so that ewe can provide requests in Bulk and check the Rate/Limit of the number of the requests
+# Apache Jmeter is used to test performance both on static and dynamic resources, Web dynsmic applicatins. It can be used to stimulate a heavyliad on a server, group of server, network or object to test its strength or to analyze iverall performance under diffeerent load types.  
