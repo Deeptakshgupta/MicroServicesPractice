@@ -18,19 +18,6 @@ spring:
     import: optional:configserver:http://localhost:8085
     
     
-#Spring Security
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://dev-21471149.okta.com/oauth2/default
-      client:
-        registration:
-          my-internet-client
-            provider:okta
-            authorization-grant-type: client_credentials
-
-
 
 
 #eureka:
@@ -56,8 +43,6 @@ management:
   endpoint:
     health:
       show-details: always
-   
-   
    
    
 # Resilience4J configuration
@@ -90,13 +75,9 @@ resilience4j:
 # to Test this we have used Jmeter, so that ewe can provide requests in Bulk and check the Rate/Limit of the number of the requests
 # Apache Jmeter is used to test performance both on static and dynamic resources, Web dynsmic applicatins. It can be used to stimulate a heavyliad on a server, group of server, network or object to test its strength or to analyze iverall performance under diffeerent load types.  
 
-
-
-# Okta auth coniguration, it also acts as a client as it also calls other services also and hence we also have to do client configuration also.
+# Okta auth coniguration
 okta:
   oauth2:
     issuer: https://dev-21471149.okta.com/oauth2/default
     audience: api://default
-    
-    
     
